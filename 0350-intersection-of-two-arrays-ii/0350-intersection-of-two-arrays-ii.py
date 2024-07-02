@@ -1,4 +1,3 @@
-from collections import Counter
 class Solution(object):
     def intersect(self, nums1, nums2):
         """
@@ -6,13 +5,12 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        count1 = Counter(nums1)
-        count2 = Counter(nums2)
-
-        
-        intersection = []
-        for num in count1:
-            if num in count2:
-                intersection.extend([num] * min(count1[num], count2[num]))
-
-        return intersection
+        if len(nums1) > len(nums2): return self.intersect(nums2, nums1)
+            
+        cnt = Counter(nums1)
+        ans = []
+        for x in nums2:
+            if cnt[x] > 0:
+                ans.append(x)
+                cnt[x] -= 1
+        return ans
